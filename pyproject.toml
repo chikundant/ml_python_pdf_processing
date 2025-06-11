@@ -16,6 +16,7 @@ fitz = "^0.0.1.dev2"
 pymupdf = "^1.26.0"
 pdfplumber = "^0.11.6"
 python-multipart = "^0.0.20"
+aioboto3 = "^14.3.0"
 
 
 [build-system]

@@ -12,6 +12,13 @@ services:
     volumes:
       - .:/app
     network_mode: "host"
+  localstack:
+    container_name: "${LOCALSTACK_DOCKER_NAME-localstack-main}"
+    image: localstack/localstack:s3-latest
+    ports:
+      - "127.0.0.1:4566:4566"
+    volumes:
+      - "./init-s3.py:/etc/localstack/init/ready.d/init-s3.py"  
 
   # db:
   #   image: postgres:15.4
