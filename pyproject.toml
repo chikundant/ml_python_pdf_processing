@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "otel-sentry-integration"
+name = "pdp-frocessor"
 version = "0.1.0"
 description = ""
-authors = ["Dmytro Chikunda <dmytro.chikunda@fortegrp.com>"]
+authors = ["Dmytro Chikunda <dima.chikunda@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
@@ -11,6 +11,11 @@ uvicorn = "^0.24.0.post1"
 fastapi = "^0.105.0"
 sentry-sdk = "^1.39.1"
 pydantic-settings = "^2.1.0"
+sqlalchemy = "^2.0.41"
+fitz = "^0.0.1.dev2"
+pymupdf = "^1.26.0"
+pdfplumber = "^0.11.6"
+python-multipart = "^0.0.20"
 
 
 [build-system]

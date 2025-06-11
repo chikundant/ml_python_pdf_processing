@@ -1,32 +1,29 @@
-version: "3.8"
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
       target: dev
-    container_name: otel-sentry-app
+    container_name: pdf-processing-app
     ports:
-      - "8001:8001"
+      - "8000:8000"
     env_file:
-      - system_configs/.env
-    depends_on:
-      - db
+      - .env
     volumes:
       - .:/app
+    network_mode: "host"
 
-  db:
-    image: postgres:15.4
-    container_name: otel-sentry-db
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: postgres
-    ports:
-      - "5434:5432"
-    volumes:
-      - otel-sentry-db-data:/var/lib/postgresql/data
+  # db:
+  #   image: postgres:15.4
+  #   container_name: otel-sentry-db
+  #   environment:
+  #     POSTGRES_USER: postgres
+  #     POSTGRES_PASSWORD: password
+  #     POSTGRES_DB: postgres
+  #   ports:
+  #     - "5434:5432"
+  #   volumes:
+  #     - otel-sentry-db-data:/var/lib/postgresql/data
 
-volumes:
-  otel-sentry-db-data:
+# volumes:
+#   otel-sentry-db-data:

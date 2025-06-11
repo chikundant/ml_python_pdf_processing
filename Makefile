@@ -1,15 +1,15 @@
 DOCKER_COMPOSE_FILE=docker-compose.yml
 APP_FOLDER=app/
-APP_NAME=otel-sentry
+APP_NAME=pdf-processing-app
 
 run:
-	docker-compose -f $(DOCKER_COMPOSE_FILE) up --build -d
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build -d
 
 stop:
 	docker-compose -f $(DOCKER_COMPOSE_FILE) stop
 
-logs-app:
-	docker logs -f $(APP_NAME)-app
+logs:
+	docker logs -f $(APP_NAME)
 
 linters:
 	python -m black --line-length=79 --exclude=tests/ $(APP_FOLDER)

@@ -2,7 +2,7 @@ FROM python:3.11-slim as base
 
 WORKDIR /tmp
 
-RUN pip install poetry
+RUN pip install poetry && poetry self add poetry-plugin-export
 
 COPY ./pyproject.toml ./poetry.lock* /tmp/
 
