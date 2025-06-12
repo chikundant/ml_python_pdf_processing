@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Processor</title>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>PDF Processor</h1>
+            <p>Upload, process, and query your PDF documents</p>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    Upload Files
+                </h2>
+                <div class="upload-area" id="uploadArea">
+                    <svg class="upload-icon" viewBox="0 0 24 24">
+                        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                    </svg>
+                    <div class="upload-text">
+                        <strong>Click to upload</strong> or drag and drop files here
+                        <br><small>PDF files only</small>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" class="file-input" multiple accept=".pdf">
+                <button class="btn" onclick="uploadFiles()" id="uploadBtn">
+                    Upload Selected Files
+                </button>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M13,9H18.5L13,3.5V9M6,2H14L20,8V20A2,2 0 0,1 18,22H6C4.89,22 4,21.1 4,20V4C4,2.89 4.89,2 6,2M6,20H15L18,20V10H12V4H6V20Z"/>
+                    </svg>
+                    Your Files
+                </h2>
+                <div class="file-list" id="fileList">
+                    <p class="empty-state">No files uploaded yet</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"/>
+                    </svg>
+                    Delete Document
+                </h2>
+                <select class="select" id="deleteDocumentSelect">
+                    <option value="">Select a document to delete...</option>
+                </select>
+                <button class="btn btn-danger" onclick="deleteDocument()" id="deleteBtn">
+                    Delete Selected Document
+                </button>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z"/>
+                    </svg>
+                    Knowledge Base Stats
+                </h2>
+                <div id="statsContent">
+                    <div class="stats-loading">Loading stats...</div>
+                </div>
+                <button class="btn btn-info" onclick="loadStats()" id="statsBtn">
+                    Refresh Stats
+                </button>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M9,22A1,1 0 0,1 8,21V18H4A2,2 0 0,1 2,16V4C2,2.89 2.9,2 4,2H20A2,2 0 0,1 22,4V16A2,2 0 0,1 20,18H13.9L10.2,21.71C10,21.9 9.75,22 9.5,22V22H9M10,16V19.08L13.08,16H20V4H4V16H10Z"/>
+                    </svg>
+                    Ask All Documents
+                </h2>
+                <textarea class="textarea" id="questionInput" placeholder="What would you like to know about your documents?"></textarea>
+                <button class="btn btn-secondary" onclick="askQuestion()" id="askBtn">
+                    Ask Question
+                </button>
+            </div>
+
+            <div class="section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z"/>
+                    </svg>
+                    Knowledge Base
+                </h2>
+                <button class="btn" onclick="initializeKnowledgeBase()" id="initBtn">
+                    Initialize Knowledge Base
+                </button>
+            </div>
+
+            <div class="section answer-section">
+                <h2>
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M21,6V8H3V6H21M3,18V16H21V18H3M3,13V11H21V13H3Z"/>
+                    </svg>
+                    Answer
+                </h2>
+                <div class="answer-content" id="answerText">Ask a question to see the answer here...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./static/script.js"></script>
+</body>
+</html>

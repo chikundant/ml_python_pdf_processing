@@ -27,6 +27,7 @@ class S3BucketService:
         return [{"filename": file["Key"], "size": file["Size"]} for file in files]
 
     async def delete_file(self, file_name: str):
+        print(file_name, flush=True)
         return self._s3_client.delete_object(Bucket=self._bucket_name, Key=file_name)
 
     async def extract_text_from_s3_pdf(self, file_name: str) -> str:

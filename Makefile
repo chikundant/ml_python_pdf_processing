@@ -14,3 +14,7 @@ logs:
 lint:
 	poetry run ruff format .
 	poetry run ruff check . --fix
+
+clean-db:
+	docker exec -it pdf-processing-db psql -U postgres -d postgres -c "DELETE FROM knowledge_base;"
+

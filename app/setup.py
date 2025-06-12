@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.core.db.connection import close_db_pool, init_db_pool
 from app.core.settings import Settings
@@ -15,7 +16,8 @@ def provide_app(settings: Settings) -> FastAPI:
         title=settings.SERVICE_NAME,
         debug=settings.DEBUG,
         version=settings.SERVICE_VERSION,
-        docs_url=settings.docs_url,
+        docs_url="/docs",
+        redoc_url="/redoc",
     )
 
     app.add_middleware(
@@ -32,6 +34,7 @@ def provide_app(settings: Settings) -> FastAPI:
     
     api_v1_router = provide_api_v1_router()
     app.include_router(api_v1_router)
+    app.mount("/static", StaticFiles(directory="static"), name="static")
     
     app.add_event_handler("shutdown", close_db_pool(app))
     return app
