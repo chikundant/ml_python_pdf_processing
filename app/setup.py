@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.core.db.connection import close_db_pool, init_db_pool
 from app.core.settings import Settings
 from app.routers.rest import provide_api_v1_router
 
@@ -27,8 +28,12 @@ def provide_app(settings: Settings) -> FastAPI:
 
     app.state.settings = settings
 
+    app.add_event_handler("startup", init_db_pool(app, settings.db))
+    
     api_v1_router = provide_api_v1_router()
     app.include_router(api_v1_router)
+    
+    app.add_event_handler("shutdown", close_db_pool(app))
     return app
 
 

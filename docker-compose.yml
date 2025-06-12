@@ -6,31 +6,44 @@ services:
       target: dev
     container_name: pdf-processing-app
     ports:
-      - "8000:8000"
+      - "8000:8000" # Ensure the port is correctly mapped
     env_file:
       - .env
     volumes:
       - .:/app
-    network_mode: "host"
+    depends_on:
+      db:
+        condition: service_started
+    networks:
+      - pdf-processing-network
+
   localstack:
     container_name: "${LOCALSTACK_DOCKER_NAME-localstack-main}"
     image: localstack/localstack:s3-latest
     ports:
       - "127.0.0.1:4566:4566"
     volumes:
-      - "./init-s3.py:/etc/localstack/init/ready.d/init-s3.py"  
+      - "./init-s3.py:/etc/localstack/init/ready.d/init-s3.py"
+    networks:
+      - pdf-processing-network
 
-  # db:
-  #   image: postgres:15.4
-  #   container_name: otel-sentry-db
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: postgres
-  #   ports:
-  #     - "5434:5432"
-  #   volumes:
-  #     - otel-sentry-db-data:/var/lib/postgresql/data
+  db:
+    image: postgres:15.4
+    container_name: pdf-processing-db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: postgres
+    ports:
+      - "5434:5432"
+    volumes:
+      - pdf-processing-db-data:/var/lib/postgresql/data
+    networks:
+      - pdf-processing-network
 
-# volumes:
-#   otel-sentry-db-data:
+networks:
+  pdf-processing-network:
+    driver: bridge
+
+volumes:
+  pdf-processing-db-data:
