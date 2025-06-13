@@ -27,8 +27,16 @@ async def get_file(
 ):
     return await s3_bucket.extract_text_from_s3_pdf(filename)
 
+
 @router.delete("/{filename}")
 async def delete_file(
-    filename: str, s3_bucket: S3BucketService = Depends(get_s3_bucket_service)
+    filename: str,
+    s3_bucket: S3BucketService = Depends(get_s3_bucket_service),
+    ml_service: MLService = Depends(get_ml_service),
 ):
-    return await s3_bucket.delete_file(filename)
+    await s3_bucket.delete_file(filename)
+    await ml_service.delete_knowledge_base()
+    await ml_service.rebuild_knowledge_base()
+    return {
+        "message": f"File {filename} deleted successfully and knowledge base rebuilt."
+    }

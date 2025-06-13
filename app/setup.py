@@ -31,11 +31,11 @@ def provide_app(settings: Settings) -> FastAPI:
     app.state.settings = settings
 
     app.add_event_handler("startup", init_db_pool(app, settings.db))
-    
+
     api_v1_router = provide_api_v1_router()
     app.include_router(api_v1_router)
     app.mount("/static", StaticFiles(directory="static"), name="static")
-    
+
     app.add_event_handler("shutdown", close_db_pool(app))
     return app
 

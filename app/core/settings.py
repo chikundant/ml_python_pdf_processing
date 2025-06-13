@@ -1,6 +1,7 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from sqlalchemy import URL
 
+
 class DBSettings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="DB_")
 
@@ -43,6 +44,7 @@ class DBSettings(BaseSettings):
     def PATH(self) -> str:
         return f"{self.HOST}:{self.PORT}/{self.NAME}"
 
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict()
 
@@ -61,4 +63,3 @@ class Settings(BaseSettings):
     @property
     def docs_url(self) -> str:
         return f"{self.PATH}/docs"
-

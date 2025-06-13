@@ -11,9 +11,11 @@ from sqlalchemy.ext.asyncio import AsyncEngine, create_async_engine
 from app.core.settings import DBSettings
 from app.models.knowledge_base import Base
 
+
 class AsyncDBPoolProvisionError(Exception):
     """Exception raised when the async DB pool cannot be provisioned."""
-    
+
+
 CoroutineType = Callable[[], Coroutine]
 
 

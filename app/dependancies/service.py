@@ -3,6 +3,8 @@ from fastapi import Depends
 
 from app.services.ml_service import MLService
 from app.services.s3_bucket_service import S3BucketService
+from app.core.db.session import get_session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 
 def get_s3_client():
@@ -22,5 +24,6 @@ def get_s3_bucket_service(
 
 def get_ml_service(
     s3_bucket_service: S3BucketService = Depends(get_s3_bucket_service),
+    session: AsyncSession = Depends(get_session),
 ) -> MLService:
-    return MLService(s3_bucket_service)
+    return MLService(s3_bucket_service, session)
